@@ -1,0 +1,16 @@
+@use './variables' as *;
+/* reset */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* general */
+
+body {
+    font-family: $font;
+}
+
+/* utils */
