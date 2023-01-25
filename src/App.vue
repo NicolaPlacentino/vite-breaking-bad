@@ -2,16 +2,55 @@
 import axios from 'axios';
 import { store } from './store';
 import AppMain from './components/AppMain.vue';
+import SelectComponent from './components/SelectComponent.vue';
+
 export default {
   name: 'App',
-  components: { AppMain },
+  components: { AppMain, SelectComponent },
   data() {
     return {
-      store
+      store,
+      unfilteredUrl: 'https://41tyokboji.execute-api.eu-central-1.amazonaws.com/dev/api/v1/pokemons?per=10&page=1',
+      pokemonTypes: [
+        "Water",
+        "Ground",
+        "Bug",
+        "Flying",
+        "Psychic",
+        "Grass",
+        "Ice",
+        "Ghost",
+        "Poison",
+        "Fighting",
+        "Electric",
+        "Rock",
+        "Dark",
+        "Fairy",
+        "Fire",
+        "Normal",
+        "Dragon",
+        "Steel"
+      ]
+    }
+  },
+  computed: {
+    filteredUrl(selectedType) {
+      return `${this.unfilteredUrl}&eq[type1]=${selectedType}`
+    }
+  },
+  methods: {
+    getFilteredPokemons(selectedType) {
+      axios.get(this.filteredUrl(selectedType))
+        .then(res => {
+          store.Pokemons = res.data.docs
+        })
+    },
+    onOptionSelected(value) {
+      console.log(value)
     }
   },
   created() {
-    axios.get('https://41tyokboji.execute-api.eu-central-1.amazonaws.com/dev/api/v1/pokemons?per=10&page=1')
+    axios.get(this.unfilteredUrl)
       .then(res => {
         store.Pokemons = res.data.docs
       })
@@ -22,6 +61,12 @@ export default {
 <template>
   <h1 class="text-center my-4">Pokedex</h1>
   <AppMain></AppMain>
+
+  <h5 class="text-center">Filtra per tipo</h5>
+  <SelectComponent :pokemonTypes="this.pokemonTypes" :name="'pokemon-types'"
+    @option-selected="this.getFilteredPokemons()">
+  </SelectComponent>
+
 </template>
 
 <style lang="scss">

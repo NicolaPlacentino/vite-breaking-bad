@@ -1,36 +1,16 @@
 <script>
 import Card from './Card.vue';
-import SelectComponent from './SelectComponent.vue';
 import { store } from '../store';
 
 export default {
     name: 'AppMain',
-    components: { Card, SelectComponent },
+    components: { Card },
     data() {
         return {
             store,
-            pokemonTypes: [
-                "Water",
-                "Ground",
-                "Bug",
-                "Flying",
-                "Psychic",
-                "Grass",
-                "Ice",
-                "Ghost",
-                "Poison",
-                "Fighting",
-                "Electric",
-                "Rock",
-                "Dark",
-                "Fairy",
-                "Fire",
-                "Normal",
-                "Dragon",
-                "Steel"
-            ]
         }
-    }
+    },
+
 }
 </script>
 
@@ -47,8 +27,6 @@ export default {
             </div>
         </div>
 
-        <h5 class="text-center">Filtra per tipo</h5>
-        <SelectComponent :pokemonTypes="this.pokemonTypes" :name="'pokemon-types'"></SelectComponent>
 
     </div>
 </template>
