@@ -36,7 +36,11 @@ export default {
   },
   computed: {
     filteredUrl() {
-      return `${this.unfilteredUrl}&eq[type1]=${this.selectedType}`
+      if (!this.selectedType) {
+        return this.unfilteredUrl
+      } else {
+        return `${this.unfilteredUrl}&eq[type1]=${this.selectedType}`
+      }
     }
   },
   methods: {
