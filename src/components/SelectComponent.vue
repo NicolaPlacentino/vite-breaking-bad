@@ -1,26 +1,40 @@
 <script>
 export default {
     name: 'SelectComponent',
+    data() {
+        return {
+            selectedOption: ''
+        }
+    },
     props: {
         pokemonTypes: Array,
         name: String,
-    }
+    },
+    emits: ['option-selected', 'get-filtered-options']
 }
 </script>
 
 <template>
-    <select :name="name" id="" class="form-select">
-        <option selected value="">-</option>
-        <option v-for="pokemonType in this.pokemonTypes" :value="pokemonType">{{ pokemonType }}</option>
-    </select>
+    <div class="d-flex">
+        <select :name="name" v-model="selectedOption" @click="$emit('option-selected', selectedOption)" id="select"
+            class="form-select">
+            <option selected value="">-</option>
+            <option v-for="pokemonType in this.pokemonTypes" :value="pokemonType">{{ pokemonType }}</option>
+        </select>
+        <button @click="$emit('getFilteredOptions')" class="btn btn-primary ms-3">Cerca</button>
+    </div>
 </template>
 
 <style lang="scss" scoped>
 @use '../assets/scss/variables' as *;
 
-select {
+div {
     width: 50%;
     margin: 0 auto;
     margin-bottom: 50px;
+
+    select {
+        display: inline;
+    }
 }
 </style>

@@ -10,6 +10,7 @@ export default {
   data() {
     return {
       store,
+      selectedType: '',
       unfilteredUrl: 'https://41tyokboji.execute-api.eu-central-1.amazonaws.com/dev/api/v1/pokemons?per=10&page=1',
       pokemonTypes: [
         "Water",
@@ -34,19 +35,19 @@ export default {
     }
   },
   computed: {
-    filteredUrl(selectedType) {
-      return `${this.unfilteredUrl}&eq[type1]=${selectedType}`
+    filteredUrl() {
+      return `${this.unfilteredUrl}&eq[type1]=${this.selectedType}`
     }
   },
   methods: {
-    getFilteredPokemons(selectedType) {
-      axios.get(this.filteredUrl(selectedType))
+    getFilteredPokemons() {
+      axios.get(this.filteredUrl)
         .then(res => {
           store.Pokemons = res.data.docs
         })
     },
     onOptionSelected(value) {
-      console.log(value)
+      this.selectedType = value
     }
   },
   created() {
@@ -63,8 +64,8 @@ export default {
   <AppMain></AppMain>
 
   <h5 class="text-center">Filtra per tipo</h5>
-  <SelectComponent :pokemonTypes="this.pokemonTypes" :name="'pokemon-types'"
-    @option-selected="this.getFilteredPokemons()">
+  <SelectComponent :pokemonTypes="this.pokemonTypes" :name="'pokemon-types'" @option-selected="onOptionSelected"
+    @get-filtered-options="getFilteredPokemons">
   </SelectComponent>
 
 </template>
