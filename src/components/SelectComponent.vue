@@ -16,7 +16,7 @@ export default {
 
 <template>
     <div class="d-flex">
-        <select :name="name" v-model="selectedOption" @click="$emit('option-selected', selectedOption)" id="select"
+        <select :name="name" v-model="selectedOption" @change="$emit('option-selected', selectedOption)" id="select"
             class="form-select">
             <option selected value="">-</option>
             <option v-for="pokemonType in this.pokemonTypes" :value="pokemonType">{{ pokemonType }}</option>
