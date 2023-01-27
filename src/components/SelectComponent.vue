@@ -21,7 +21,7 @@ export default {
             <option selected value="">-</option>
             <option v-for="pokemonType in this.pokemonTypes" :value="pokemonType">{{ pokemonType }}</option>
         </select>
-        <button @click="$emit('getFilteredOptions')" class="btn btn-primary ms-3">Cerca</button>
+        <button @click="$emit('get-filtered-options')" class="btn btn-primary ms-3">Cerca</button>
     </div>
 </template>
 
